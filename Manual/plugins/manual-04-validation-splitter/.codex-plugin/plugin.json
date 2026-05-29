@@ -1,0 +1,20 @@
+{
+  "name": "manual-04-validation-splitter",
+  "version": "0.1.0",
+  "description": "Creates sample and full validation folds for tabular supervised learning.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "validation", "folds"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual 04 Validation Splitter",
+    "shortDescription": "Make validation folds.",
+    "longDescription": "Creates default 15 percent sample folds and full folds only when explicitly requested.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Write", "Report"],
+    "brandColor": "#7C3AED"
+  }
+}

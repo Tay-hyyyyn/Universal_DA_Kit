@@ -1,0 +1,16 @@
+[project]
+name = "universal-da-kit"
+version = "0.1.0"
+description = "Generic config-driven tabular data-analysis workflow package."
+requires-python = ">=3.10"
+dependencies = [
+  "pandas>=2.2",
+  "numpy>=1.26",
+  "scikit-learn>=1.5",
+  "joblib>=1.4",
+  "matplotlib>=3.8",
+  "pyarrow>=15.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

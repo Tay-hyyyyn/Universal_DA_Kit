@@ -1,0 +1,20 @@
+{
+  "name": "manual-07-report-writer",
+  "version": "0.1.0",
+  "description": "Writes dense stage PDFs and a final integrated PDF for Manual analysis runs.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "pdf", "report", "visualization"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual 07 Report Writer",
+    "shortDescription": "Create stage and integrated PDFs.",
+    "longDescription": "Uses Matplotlib, Seaborn, and PdfPages to generate evidence-rich PDFs with highlighted decisions.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Write", "Report"],
+    "brandColor": "#4F46E5"
+  }
+}

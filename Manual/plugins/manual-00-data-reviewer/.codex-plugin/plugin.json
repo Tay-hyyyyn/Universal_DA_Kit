@@ -1,0 +1,20 @@
+{
+  "name": "manual-00-data-reviewer",
+  "version": "0.1.0",
+  "description": "Reviews tabular datasets, target variables, columns, distributions, and inferred domain context.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "data-analysis", "eda", "tabular"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual 00 Data Reviewer",
+    "shortDescription": "Review dataset structure and target.",
+    "longDescription": "Creates a column dictionary, dataset review, and structured overview for reusable tabular analysis workflows.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Inspect", "Report"],
+    "brandColor": "#2563EB"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "manual-next-guide",
+  "version": "0.1.0",
+  "description": "Refreshes Manual run state and recommends the single next command from current artifacts.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "workflow", "next", "progress", "state"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual Next Guide",
+    "shortDescription": "Recommend the next Manual step.",
+    "longDescription": "Scans run artifacts, updates run_state/progress files, and prints one recommended next command.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Inspect", "Summarize"],
+    "brandColor": "#0F766E"
+  }
+}

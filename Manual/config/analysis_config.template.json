@@ -1,0 +1,65 @@
+{
+  "project_root": "../..",
+  "output_root": "Manual/runs",
+  "log_path": "Manual/log.md",
+  "train_path": "train.csv",
+  "test_path": "test.csv",
+  "test_usage_mode": "forbidden",
+  "test_usage_allowed_stages": [],
+  "sample_submission_path": "sample_submission.csv",
+  "metadata_paths": [],
+  "raw_intake": {
+    "enabled": false,
+    "raw_paths": [],
+    "metadata_doc_paths": []
+  },
+  "hypothesis_context_paths": [],
+  "hypothesis_defaults": {
+    "max_hypotheses": 5,
+    "lag_grid": ["0s", "30s", "60s", "120s", "300s"],
+    "ablation_groups": ["o2_included", "o2_excluded", "lag_control", "piecewise_output", "npr_interaction"]
+  },
+  "context_budget": {
+    "max_rows": 20,
+    "top_k": 8,
+    "max_chars_per_doc": 1200
+  },
+  "target_col": "__REQUIRED_TARGET_COLUMN__",
+  "task_type": "regression",
+  "id_col": null,
+  "group_col": null,
+  "time_col": null,
+  "positive_target": false,
+  "target_transform_policy": "eda_auto",
+  "domain_context": "",
+  "analyst_background": [
+    "기계공학 전공",
+    "제조업/공정 경험",
+    "냉동·냉장 물류/창고 구축 경험",
+    "여행 및 동선 관심"
+  ],
+  "domain_expertise_notes": [],
+  "experience_keywords": [
+    "부하-용량",
+    "공정 병목",
+    "냉각부하",
+    "설비/로봇 동선"
+  ],
+  "interest_keywords": [
+    "동선",
+    "피크 시간",
+    "구역별 흐름"
+  ],
+  "first_report_focus": [
+    "데이터 기반 가상 시뮬레이션",
+    "제조업·공정 질문",
+    "기계공학 질문",
+    "초기 가설과 피처 후보"
+  ],
+  "metric_primary": "",
+  "feature_defaults": {
+    "time_features": "none",
+    "feature_families": "auto",
+    "correlation_threshold": 0.95
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "project_root": "../..",
+  "output_root": "Manual/runs",
+  "log_path": "Manual/log.md",
+
+  "train_path": "data/raw/train.csv",
+  "test_path": null,
+  "test_usage_mode": "forbidden",
+  "test_usage_allowed_stages": [],
+  "sample_submission_path": null,
+  "metadata_paths": [],
+
+  "raw_intake": {
+    "enabled": false,
+    "raw_paths": [],
+    "meta_rows": 0,
+    "merge_strategy": "single_table",
+    "timestamp_col": null,
+    "rename_timestamp": "timestamp",
+    "metadata_doc_paths": []
+  },
+
+  "target_col": "__REQUIRED_TARGET_COLUMN__",
+  "task_type": "regression",
+  "id_col": null,
+  "group_col": null,
+  "time_col": null,
+
+  "positive_target": false,
+  "target_transform_policy": "eda_auto",
+  "metric_primary": "RMSE",
+
+  "domain_context": "Describe the business/process context for this dataset.",
+  "analyst_background": [],
+  "domain_expertise_notes": [],
+
+  "hypothesis_context_paths": [],
+  "hypothesis_defaults": {
+    "max_hypotheses": 5,
+    "lag_grid": ["1s", "3s", "5s"]
+  },
+  "hypothesis_templates": [
+    {
+      "hypothesis_id": "HYP-CUSTOM-LAG-EXAMPLE",
+      "one_sentence": "A previous value of a known time-dependent signal may help predict the target.",
+      "mechanism": "Replace sensor_a with a real column that is available before the prediction time.",
+      "variables": ["sensor_a", "__REQUIRED_TARGET_COLUMN__"],
+      "expected_direction": "Define the expected direction after domain review.",
+      "lag": "short",
+      "exception_mode": "Do not use this if row order is not temporal.",
+      "validation_method": "Compare temporal validation with and without lag features.",
+      "feature_plan": ["lag:sensor_a"],
+      "leakage_risk": "medium",
+      "confidence": "보통",
+      "status": "open",
+      "auto_recommended": false
+    },
+    {
+      "hypothesis_id": "HYP-CUSTOM-NONLINEAR-EXAMPLE",
+      "one_sentence": "A load or capacity column may have nonlinear behavior after a threshold.",
+      "mechanism": "Replace load_col with a real capacity, utilization, or intensity column.",
+      "variables": ["load_col", "__REQUIRED_TARGET_COLUMN__"],
+      "expected_direction": "The target may change faster above a high quantile threshold.",
+      "lag": "none",
+      "exception_mode": "Small samples can make quantile thresholds unstable.",
+      "validation_method": "Ablate hinge and interaction features on the same validation folds.",
+      "feature_plan": ["hinge:load_col:q75"],
+      "leakage_risk": "low",
+      "confidence": "보통",
+      "status": "open",
+      "auto_recommended": false
+    }
+  ],
+
+  "validation": {
+    "strategy": "auto",
+    "holdout_days": 0,
+    "holdout_gap_seconds": 0,
+    "cv_folds_in_train": 5
+  },
+
+  "submission_mode": "submission",
+  "feature_defaults": {
+    "time_features": "auto",
+    "feature_families": "auto",
+    "correlation_threshold": 0.95
+  },
+  "context_budget": {
+    "max_rows": 20,
+    "top_k": 8,
+    "max_chars_per_doc": 1200
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "manual-06-submission-maker",
+  "version": "0.1.0",
+  "description": "Creates sample-aligned predictions with selectable ensembling and postprocessing.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "submission", "ensemble"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual 06 Submission Maker",
+    "shortDescription": "Make final prediction file.",
+    "longDescription": "Builds submission outputs using best-model, simple, weighted, or manual ensemble choices.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Interactive", "Write"],
+    "brandColor": "#0891B2"
+  }
+}

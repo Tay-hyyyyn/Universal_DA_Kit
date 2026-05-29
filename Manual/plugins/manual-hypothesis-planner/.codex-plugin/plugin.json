@@ -1,0 +1,6 @@
+{
+  "name": "manual-hypothesis-planner",
+  "version": "0.1.0",
+  "description": "Manual Stage 02H/05H hypothesis planning and evaluation plugin.",
+  "skills": ["skills/manual-hypothesis-planner/SKILL.md"]
+}

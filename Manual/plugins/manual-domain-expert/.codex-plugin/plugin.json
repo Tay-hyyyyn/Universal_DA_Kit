@@ -1,0 +1,20 @@
+{
+  "name": "manual-domain-expert",
+  "version": "0.1.0",
+  "description": "Creates learning-oriented domain expert question cards and converts user answers into a compact domain context pack.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "data-analysis", "domain-expert", "questionnaire"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual Domain Expert",
+    "shortDescription": "Generate and ingest domain question cards.",
+    "longDescription": "Helps non-expert users turn starter answers, shallow domain knowledge, and follow-up questions into safe analysis guidance.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Questionnaire", "Context"],
+    "brandColor": "#0F766E"
+  }
+}

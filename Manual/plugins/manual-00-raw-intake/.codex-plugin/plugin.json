@@ -1,0 +1,6 @@
+{
+  "name": "manual-00-raw-intake",
+  "version": "0.1.0",
+  "description": "Optional raw CSV/Excel intake and metadata separation stage for Manual.",
+  "skills": ["skills/manual-00-raw-intake/SKILL.md"]
+}

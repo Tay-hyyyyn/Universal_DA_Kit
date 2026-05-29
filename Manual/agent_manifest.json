@@ -1,0 +1,247 @@
+﻿{
+    "name":  "manual-tabular-data-analysis",
+    "version":  "2026-04-20",
+    "purpose":  "Agent-neutral manifest for running the Manual tabular supervised learning workflow with any code agent.",
+    "root":  "Manual",
+    "primary_docs":  [
+                         "Manual/README.md",
+                         "Manual/CONTEXT_MINIMIZATION_GUIDE.md",
+                         "Manual/AGENT_USAGE_GUIDELINES.md",
+                         "Manual/CODE_AGENT_ONBOARDING.md",
+                         "Manual/MANUAL_PLUGIN_AND_REPORT_REVIEW.md",
+                         "Manual/USER_GUIDE_DOMAIN_EXPERT.md"
+                     ],
+    "compact_context":  {
+                            "read_first":  [
+                                               "state/active_run.json",
+                                               "runs/<run_id>/summary.json",
+                                               "runs/<run_id>/progress.md",
+                                               "runs/<run_id>/run_index.md",
+                                               "runs/<run_id>/artifact_index.json",
+                                               "runs/<run_id>/reports/domain_context_pack.json",
+                                               "runs/<run_id>/reports/hypothesis_context_pack.json"
+                                           ],
+                            "stage_sources":  [
+                                                  "reports/stage_00_report_payload.json",
+                                                  "reports/stage_01_report_payload.json",
+                                                  "reports/stage_02_report_payload.json",
+                                                  "reports/stage_02H_report_payload.json",
+                                                  "reports/stage_03_report_payload.json",
+                                                  "reports/stage_04_report_payload.json",
+                                                  "reports/stage_05_report_payload.json",
+                                                  "reports/stage_05H_report_payload.json",
+                                                  "reports/stage_06_report_payload.json",
+                                                  "reports/domain_context_pack.json",
+                                                  "reports/hypothesis_context_pack.json",
+                                                  "reports/hypothesis_registry.json",
+                                                  "reports/hypothesis_validation_results.json",
+                                                  "reports/action_items.json"
+                                              ],
+                            "rules":  [
+                                          "Read only the current stage payload and its immediate artifacts before opening long markdown reports.",
+                                          "All PDF report stages should use reports/stage_<stage>_report_payload.json as the first source of truth.",
+                                          "Use domain_context_pack.json compact_summary instead of pasting full domain_answers.md into prompts.",
+                                          "Use hypothesis_context_pack.json compact_summary instead of pasting long engineering reports or hypothesis markdown into prompts.",
+                                          "Prefer summary.json and run_state.json over full README when resuming an existing run.",
+                                          "Prefer run_index.md and artifact_index.json before opening long reports.",
+                                          "Keep prompts short: current stage, target output, blocking decision, and one next command."
+                                      ]
+                        },
+    "config":  {
+                   "template":  "Manual/config/analysis_config.template.json",
+                   "required_fields":  [
+                                           "train_path",
+                                           "target_col",
+                                           "task_type"
+                                       ],
+                   "recommended_fields":  [
+                                              "test_path",
+                                              "sample_submission_path",
+                                              "id_col",
+                                              "group_col",
+                                              "time_col",
+                                              "metadata_paths",
+                                              "raw_intake",
+                                              "hypothesis_context_paths",
+                                              "hypothesis_defaults",
+                                              "context_budget",
+                                              "positive_target",
+                                              "target_transform_policy",
+                                              "metric_primary",
+                                              "domain_context",
+                                              "analyst_background",
+                                              "domain_expertise_notes",
+                                              "experience_keywords",
+                                              "interest_keywords",
+                                              "first_report_focus"
+                                          ]
+               },
+    "guardrails":  [
+                       "Do not treat smoke or sample runs as final performance.",
+                       "Do not run full train unless the user explicitly asks or the current task requires final training.",
+                       "If group_col exists, prefer group-aware validation over random row split.",
+                       "Target transformation is an EDA/profiler decision. Compare raw and log1p only when stage 02 flags log1p as a candidate or the user explicitly requests it.",
+                       "Stage 00 must surface domain insight questions through a simulation narrative, manufacturing/process prompts, engineering prompts, and analyst-background prompts before modeling.",
+                       "Starter-answer-only domain responses are hypotheses, not confirmed rules; low-confidence answers must never auto-filter source data.",
+                       "Domain checkpoints: the pipeline pauses before stages 01/03/05/07 on first encounter even if later domain cards were prefilled; use pending_checkpoint.md guidance to continue.",
+                       "To revisit a completed run from a stage-specific checkpoint, resume with -FromStage 03/05/07 so downstream stages are recomputed after user confirmation.",
+                       "Automatic proceed is only allowed when the user explicitly requests it (e.g., -AutoProceed) or clearly delegates to defaults for the current checkpoint; record deferred checkpoints in domain_context_pack.json.",
+                       "If log1p target models are used, restore log predictions with expm1 before submission.",
+                       "Record every material decision in the run decision log and final report.",
+                       "Keep Manual generic. Do not hardcode project-specific column names into Manual plugins.",
+                       "Final user-facing reports must follow the standalone result-report template: project overview, experiment/submission history, model family summary, feature engineering, key findings, unresolved issues, next actions, and artifact map."
+                   ],
+    "standard_commands":  {
+                              "smoke":  "powershell -NoProfile -ExecutionPolicy Bypass -File Manual/run_manual_pipeline.ps1 -Config Manual/config/\u003cproject_config\u003e.json -RunId smoke -TuningTrials 1 -MaxFolds 1 -ExplainModels none",
+                              "default":  "powershell -NoProfile -ExecutionPolicy Bypass -File Manual/run_manual_pipeline.ps1 -Config Manual/config/\u003cproject_config\u003e.json -RunId \u003crun_id\u003e",
+                              "resume":  "powershell -NoProfile -ExecutionPolicy Bypass -File Manual/run_manual_pipeline.ps1 -Config Manual/config/\u003cproject_config\u003e.json -RunId \u003crun_id\u003e -Resume",
+                              "resume_auto_proceed":  "powershell -NoProfile -ExecutionPolicy Bypass -File Manual/run_manual_pipeline.ps1 -Config Manual/config/\u003cproject_config\u003e.json -RunId \u003crun_id\u003e -Resume -AutoProceed",
+                              "full_train":  "powershell -NoProfile -ExecutionPolicy Bypass -File Manual/run_manual_pipeline.ps1 -Config Manual/config/\u003cproject_config\u003e.json -RunId \u003crun_id\u003e -FullTrain",
+                              "no_pdf_smoke":  "powershell -NoProfile -ExecutionPolicy Bypass -File Manual/run_manual_pipeline.ps1 -Config Manual/config/\u003cproject_config\u003e.json -RunId smoke -TuningTrials 1 -MaxFolds 1 -ExplainModels none -NoPdfReport",
+                              "domain_questionnaire":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-domain-expert/scripts/generate_questionnaire.py --config Manual/config/<project_config>.json --run-id <run_id>",
+                              "domain_ingest_answers":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-domain-expert/scripts/ingest_answers.py --config Manual/config/<project_config>.json --run-id <run_id>",
+                              "domain_checkpoint":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-domain-expert/scripts/domain_checkpoint.py --config Manual/config/<project_config>.json --run-id <run_id> --stage-before <01|03|05|07>",
+                              "domain_defer_pending":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-domain-expert/scripts/defer_pending_checkpoint.py --config Manual/config/<project_config>.json --run-id <run_id>",
+                              "raw_intake":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-00-raw-intake/scripts/raw_intake.py --config Manual/config/<project_config>.json --run-id <run_id>",
+                              "hypothesis_propose":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-hypothesis-planner/scripts/hypothesis_planner.py propose --config Manual/config/<project_config>.json --run-id <run_id>",
+                              "hypothesis_ingest":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-hypothesis-planner/scripts/hypothesis_planner.py ingest --config Manual/config/<project_config>.json --run-id <run_id>",
+                              "hypothesis_evaluate":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-hypothesis-planner/scripts/hypothesis_planner.py evaluate --config Manual/config/<project_config>.json --run-id <run_id>",
+                              "next_guide":  ".\\.venv\\Scripts\\python.exe Manual/plugins/manual-next-guide/scripts/next_guide.py --project-root <analysis_root>"
+                          },
+    "stages":  [
+                   {
+                       "id":  "00",
+                       "plugin":  "manual-00-data-reviewer",
+                       "skill":  "Manual/plugins/manual-00-data-reviewer/skills/manual-00-data-reviewer/SKILL.md",
+                       "script":  "Manual/plugins/manual-00-data-reviewer/scripts/review_data.py",
+                       "purpose":  "Review dataset structure, target, columns, inferred domain context, simulation narrative, and analyst-background insight questions.",
+                       "outputs":  [
+                                       "Manual/runs/\u003crun_id\u003e/reports/dataset_review.md",
+                                       "Manual/runs/\u003crun_id\u003e/reports/column_dictionary.csv",
+                                       "Manual/runs/\u003crun_id\u003e/reports/data_overview.json",
+                                       "Manual/runs/\u003crun_id\u003e/reports/domain_questionnaire.md",
+                                       "Manual/runs/\u003crun_id\u003e/reports/domain_answers.md"
+                                   ],
+                       "agent_check":  "Confirm target_col, task_type, id_col, group_col, time_col, domain_context, simulation narrative, manufacturing/process questions, engineering questions, and analyst background leverage before modeling."
+                   },
+                   {
+                       "id":  "01",
+                       "plugin":  "manual-01-env-checker",
+                       "skill":  "Manual/plugins/manual-01-env-checker/skills/manual-01-env-checker/SKILL.md",
+                       "script":  "Manual/plugins/manual-01-env-checker/scripts/check_env.py",
+                       "purpose":  "Check package availability and configured input files.",
+                       "outputs":  [
+                                       "Manual/runs/\u003crun_id\u003e/reports/env_check.md",
+                                       "Manual/runs/\u003crun_id\u003e/reports/env_check.json"
+                                   ],
+                       "agent_check":  "Fix missing files or package issues before feature/model stages."
+                   },
+                   {
+                       "id":  "02",
+                       "plugin":  "manual-02-profiler-diagnoser",
+                       "skill":  "Manual/plugins/manual-02-profiler-diagnoser/skills/manual-02-profiler-diagnoser/SKILL.md",
+                       "script":  "Manual/plugins/manual-02-profiler-diagnoser/scripts/diagnose_data.py",
+                       "purpose":  "Diagnose missingness, outliers, target distribution shape, optional log1p candidate flag, and domain questions.",
+                       "outputs":  [
+                                       "Manual/runs/\u003crun_id\u003e/reports/diagnosis_report.md",
+                                       "Manual/runs/\u003crun_id\u003e/reports/target_outlier_summary.json",
+                                       "Manual/runs/\u003crun_id\u003e/reports/target_outlier_hypotheses.csv",
+                                       "Manual/runs/\u003crun_id\u003e/reports/target_outlier_evidence.csv",
+                                       "Manual/runs/\u003crun_id\u003e/reports/missing_reason_hypotheses.csv",
+                                       "Manual/runs/\u003crun_id\u003e/reports/feature_drift_summary.csv",
+                                       "Manual/runs/\u003crun_id\u003e/reports/treatment_recommendations.csv",
+                                       "Manual/runs/\u003crun_id\u003e/reports/domain_insight_questions.md",
+                                       "Manual/runs/\u003crun_id\u003e/reports/domain_context_pack.json"
+                                   ],
+                       "agent_check":  "Connect missing/outlier hypotheses to feature and postprocessing choices; use target_transform_screening to decide whether log1p should be tested later."
+                   },
+                   {
+                       "id":  "03",
+                       "plugin":  "manual-03-feature-builder",
+                       "skill":  "Manual/plugins/manual-03-feature-builder/skills/manual-03-feature-builder/SKILL.md",
+                       "script":  "Manual/plugins/manual-03-feature-builder/scripts/build_features.py",
+                       "purpose":  "Build processed train/test features and feature manifest.",
+                       "outputs":  [
+                                       "Manual/runs/\u003crun_id\u003e/data/processed/train_features.parquet",
+                                       "Manual/runs/\u003crun_id\u003e/data/processed/test_features.parquet",
+                                       "Manual/runs/\u003crun_id\u003e/data/processed/feature_manifest.json",
+                                       "Manual/runs/\u003crun_id\u003e/data/processed/y.parquet",
+                                       "Manual/runs/\u003crun_id\u003e/data/processed/feature_build_report.md",
+                                       "Manual/runs/\u003crun_id\u003e/reports/feature_candidate_menu.csv"
+                                   ],
+                       "agent_check":  "Record feature lineage: hypothesis, formula, leakage risk, validation plan."
+                   },
+                   {
+                       "id":  "04",
+                       "plugin":  "manual-04-validation-splitter",
+                       "skill":  "Manual/plugins/manual-04-validation-splitter/skills/manual-04-validation-splitter/SKILL.md",
+                       "script":  "Manual/plugins/manual-04-validation-splitter/scripts/make_folds.py",
+                       "purpose":  "Create sample and optional full validation folds.",
+                       "outputs":  [
+                                       "Manual/runs/\u003crun_id\u003e/data/folds/sample15_folds.csv",
+                                       "Manual/runs/\u003crun_id\u003e/data/folds/sample15_fold_summary.json",
+                                       "Manual/runs/\u003crun_id\u003e/data/folds/sample15_fold_report.md",
+                                       "Manual/runs/\u003crun_id\u003e/data/folds/full_folds.csv"
+                                   ],
+                       "agent_check":  "Prefer group split when group_col exists; clearly label sample versus full folds."
+                   },
+                   {
+                       "id":  "05",
+                       "plugin":  "manual-05-model-trainer",
+                       "skill":  "Manual/plugins/manual-05-model-trainer/skills/manual-05-model-trainer/SKILL.md",
+                       "script":  "Manual/plugins/manual-05-model-trainer/scripts/train_model.py",
+                       "purpose":  "Train tuned models, follow the EDA target-transform recommendation, and record OOF metrics.",
+                       "outputs":  [
+                                       "Manual/runs/\u003crun_id\u003e/artifacts/models/metrics.csv",
+                                       "Manual/runs/\u003crun_id\u003e/artifacts/models/tuning_results.csv",
+                                       "Manual/runs/\u003crun_id\u003e/artifacts/models/oof_predictions.csv",
+                                       "Manual/runs/\u003crun_id\u003e/artifacts/models/test_predictions.csv",
+                                       "Manual/runs/\u003crun_id\u003e/artifacts/models/model_registry.json",
+                                       "Manual/runs/\u003crun_id\u003e/artifacts/models/explainability_report.md"
+                                   ],
+                       "agent_check":  "Use target-mode auto by default; report whether log1p was EDA-flagged, target mode, primary metric, fold scope, tuning trials, best params, and train-valid gap."
+                   },
+                   {
+                       "id":  "06",
+                       "plugin":  "manual-06-submission-maker",
+                       "skill":  "Manual/plugins/manual-06-submission-maker/skills/manual-06-submission-maker/SKILL.md",
+                       "script":  "Manual/plugins/manual-06-submission-maker/scripts/make_submission.py",
+                       "purpose":  "Create sample-aligned predictions with ensemble and postprocessing choices.",
+                       "outputs":  [
+                                       "Manual/runs/\u003crun_id\u003e/submissions/submission.csv",
+                                       "Manual/runs/\u003crun_id\u003e/submissions/submission_report.md",
+                                       "Manual/runs/\u003crun_id\u003e/submissions/ensemble_weights.csv",
+                                       "Manual/runs/\u003crun_id\u003e/submissions/postprocess_choices.json"
+                                   ],
+                       "agent_check":  "Validate ID order, prediction nulls, raw/log restoration, negative clip, and upper clip."
+                   },
+                   {
+                       "id":  "07",
+                       "plugin":  "manual-07-report-writer",
+                       "skill":  "Manual/plugins/manual-07-report-writer/skills/manual-07-report-writer/SKILL.md",
+                       "script":  "Manual/plugins/manual-07-report-writer/scripts/write_reports.py",
+                       "purpose":  "Write stage PDFs and final integrated report.",
+                       "outputs":  [
+                                       "Manual/runs/\u003crun_id\u003e/reports/pdf/stage_*.pdf",
+                                       "Manual/runs/\u003crun_id\u003e/reports/pdf/analysis_report_integrated.pdf",
+                                       "Manual/runs/\u003crun_id\u003e/reports/action_items.md",
+                                       "Manual/runs/\u003crun_id\u003e/reports/action_items.json"
+                                   ],
+                       "agent_check":  "Make the report standalone and decision-oriented: project overview, experiment/submission history, model family summary, feature engineering, key findings, unresolved issues, next actions, and artifact map."
+                   }
+               ],
+    "report_contract":  {
+                            "guideline":  "Manual/plugins/manual-07-report-writer/scripts/REPORT_WRITING_GUIDELINES.md",
+                            "required_sections":  [
+                                                      "프로젝트 개요",
+                                                      "제출 이력 또는 실험 이력",
+                                                      "모델 실험 전체 요약",
+                                                      "피처 엔지니어링",
+                                                      "핵심 발견 및 교훈",
+                                                      "외부/벤치마크 비교",
+                                                      "미해결 과제",
+                                                      "향후 시도 권장",
+                                                      "주요 코드/아티팩트 파일"
+                                                  ]
+                        }
+}

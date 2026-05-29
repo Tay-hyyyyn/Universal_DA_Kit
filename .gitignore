@@ -1,0 +1,40 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv*/
+.pytest_cache/
+
+# Manual runtime outputs
+Manual/runs/
+Manual/state/
+runs/
+state/
+tmp/
+log.md
+*.log
+
+# Data/model artifacts
+*.csv
+*.tsv
+*.parquet
+*.pkl
+*.joblib
+*.bin
+*.model
+
+# Keep public examples
+!examples/
+!examples/*.csv
+!Manual/config/*.example.json
+!Manual/config/*.template.json
+
+# Local scratch
+tests/_tmp*/
+*.tmp
+*.bak

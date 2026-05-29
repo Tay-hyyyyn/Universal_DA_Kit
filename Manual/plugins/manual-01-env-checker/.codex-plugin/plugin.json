@@ -1,0 +1,20 @@
+{
+  "name": "manual-01-env-checker",
+  "version": "0.1.0",
+  "description": "Checks Python packages and configured input files for a Manual analysis run.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "environment", "python"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual 01 Env Checker",
+    "shortDescription": "Check environment and inputs.",
+    "longDescription": "Validates configured files and package availability before running the analysis pipeline.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Inspect", "Report"],
+    "brandColor": "#0F766E"
+  }
+}

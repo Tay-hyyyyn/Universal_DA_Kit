@@ -1,0 +1,20 @@
+{
+  "name": "manual-05-model-trainer",
+  "version": "0.1.0",
+  "description": "Trains mandatory XGBoost plus optional interpretable models for regression and classification.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "model", "xgboost", "tuning"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual 05 Model Trainer",
+    "shortDescription": "Train tuned tabular models.",
+    "longDescription": "Runs hyperparameter search for XGBoost and selected interpretable models and records explainability outputs.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Write", "Report"],
+    "brandColor": "#DC2626"
+  }
+}

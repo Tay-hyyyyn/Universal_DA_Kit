@@ -1,0 +1,20 @@
+{
+  "name": "manual-02-profiler-diagnoser",
+  "version": "0.1.0",
+  "description": "Creates missing-value and outlier hypotheses with treatment recommendations.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "profiling", "missing", "outlier"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual 02 Profiler Diagnoser",
+    "shortDescription": "Diagnose missingness and outliers.",
+    "longDescription": "Builds evidence-backed hypotheses for missing values and outliers and proposes treatment options.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Inspect", "Report"],
+    "brandColor": "#F59E0B"
+  }
+}

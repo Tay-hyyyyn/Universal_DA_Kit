@@ -1,0 +1,116 @@
+{
+  "name": "manual-data-analysis-marketplace",
+  "interface": {
+    "displayName": "Manual Data Analysis"
+  },
+  "plugins": [
+    {
+      "name": "manual-00-data-reviewer",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-00-data-reviewer"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    },
+    {
+      "name": "manual-01-env-checker",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-01-env-checker"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    },
+    {
+      "name": "manual-02-profiler-diagnoser",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-02-profiler-diagnoser"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    },
+    {
+      "name": "manual-03-feature-builder",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-03-feature-builder"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    },
+    {
+      "name": "manual-04-validation-splitter",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-04-validation-splitter"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    },
+    {
+      "name": "manual-05-model-trainer",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-05-model-trainer"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    },
+    {
+      "name": "manual-06-submission-maker",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-06-submission-maker"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    },
+    {
+      "name": "manual-07-report-writer",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-07-report-writer"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    },
+    {
+      "name": "manual-next-guide",
+      "source": {
+        "source": "local",
+        "path": "./plugins/manual-next-guide"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data Science"
+    }
+  ]
+}

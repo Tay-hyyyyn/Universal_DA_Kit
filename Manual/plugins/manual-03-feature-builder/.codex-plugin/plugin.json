@@ -1,0 +1,20 @@
+{
+  "name": "manual-03-feature-builder",
+  "version": "0.1.0",
+  "description": "Builds reusable tabular features from data diagnostics and user choices.",
+  "author": {
+    "name": "Local Data Analysis Team"
+  },
+  "license": "MIT",
+  "keywords": ["manual", "features", "tabular", "preprocessing"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Manual 03 Feature Builder",
+    "shortDescription": "Create feature menu and processed data.",
+    "longDescription": "Uses dataset diagnostics to create candidate feature menus, apply imputation, and build processed train/test data.",
+    "developerName": "Local Data Analysis Team",
+    "category": "Data Science",
+    "capabilities": ["Interactive", "Write"],
+    "brandColor": "#16A34A"
+  }
+}
