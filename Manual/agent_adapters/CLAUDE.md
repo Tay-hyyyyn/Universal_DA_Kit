@@ -1,27 +1,36 @@
-# Claude Code Instructions for Manual Data Analysis
+# Agent Instructions for Manual Data Analysis
 
-Use this project as a config-driven tabular data analysis workflow.
+Scope: this file applies to the project where it is copied. It is designed for Codex/OpenAI-style code agents.
 
-## Required Context
+## Read First
 
-- `Manual/agent_manifest.json`
-- `Manual/README.md`
-- `Manual/AGENT_USAGE_GUIDELINES.md`
-- Relevant plugin `SKILL.md` under `Manual/plugins/<plugin>/skills/`
+1. Read `Manual/agent_manifest.json`.
+2. Read `Manual/README.md`.
+3. Read `Manual/CODE_AGENT_ONBOARDING.md` and `Manual/CONTEXT_MINIMIZATION_GUIDE.md` when the task spans multiple stages or resumes a run.
+4. If working on a specific stage, read that plugin's `skills/<plugin>/SKILL.md`.
 
-## Workflow
+## Operating Rules
 
-1. Create or verify a config copied from `Manual/config/analysis_config.template.json`.
-2. Run smoke first with `-TuningTrials 1 -MaxFolds 1 -ExplainModels none`.
-3. Read `dataset_review.md` first and list the simulation narrative, manufacturing/process questions, engineering questions, and analyst-background prompts that need user confirmation.
-4. Read later stage reports before changing later-stage behavior.
-5. Ask the user before full training, package installation, destructive cleanup, or final submission replacement.
-6. Keep final reports independent: explain the final model without relying on internal experiment nicknames.
+- Keep `Manual/` generic; do not hardcode project-specific column names into Manual plugins.
+- Use config files for project-specific paths, target, ID, group, time, and metadata choices.
+- Run a smoke pipeline before full training.
+- Do not treat smoke/sample metrics as final performance.
+- If `group_col` exists, use group-aware validation.
+- Target transformation is an EDA decision. Compare raw and `log1p` only when stage 02 flags it or the user explicitly requests it; restore log predictions with `expm1` before submission.
+- Stage 00 `dataset_review.md` must include a data-based simulation narrative, manufacturing/process questions, engineering questions, analyst-background prompts, and initial hypothesis-to-feature candidates.
+- After Stage 00, summarize what the user should confirm from their domain experience before changing feature/model behavior.
+- Record feature lineage and user decisions in reports and run artifacts.
 
-## Guardrails
+## Standard Smoke Command
 
-- No row random split when a meaningful `group_col` exists.
-- No direct use of target or direct group identifiers as leakage-prone model features.
-- Do not compare raw/log1p as a default modeling rule. Let stage 02 EDA flag whether log1p is a candidate; no log-scale submission values if log models are used.
-- Do not skip the Stage 00 domain insight loop. Use analyst background as questions and hypotheses, not as proof.
-- No model recommendation without fold scope, metric, target transform, feature count, and output path.
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File Manual\run_manual_pipeline.ps1 -Config Manual\config\<project_config>.json -RunId smoke -TuningTrials 1 -MaxFolds 1 -ExplainModels none
+```
+
+## Completion Checklist
+
+- Config fields verified.
+- Stage outputs exist.
+- Metrics and tuning results are from the intended fold scope.
+- Submission, if created, has correct ID order and no null predictions.
+- Final report explains data, features, validation, model tuning, overfitting controls, and output units.

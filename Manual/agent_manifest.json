@@ -6,9 +6,8 @@
     "primary_docs":  [
                          "Manual/README.md",
                          "Manual/CONTEXT_MINIMIZATION_GUIDE.md",
-                         "Manual/AGENT_USAGE_GUIDELINES.md",
                          "Manual/CODE_AGENT_ONBOARDING.md",
-                         "Manual/MANUAL_PLUGIN_AND_REPORT_REVIEW.md",
+                         "Manual/PROJECT_START_GUIDE.md",
                          "Manual/USER_GUIDE_DOMAIN_EXPERT.md"
                      ],
     "compact_context":  {

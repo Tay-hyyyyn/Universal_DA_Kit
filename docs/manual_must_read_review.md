@@ -1,20 +1,20 @@
-# Manual Must Read It First Review
+# Lightweight Must Read It Review
 
-## Applied
+## Adopted
 
-- `Manual/AGENTS.md` and `Manual/CLAUDE.md` are short area maps.
-- Plugin manifests and `.codex-plugin` metadata are included.
-- `.agents/plugins/marketplace.json` is included.
-- README and context-minimization guidance tell agents to use compact payloads before long reports.
-- Runtime outputs are ignored.
+- Root and area `AGENTS.md`/`CLAUDE.md` maps route agents to only the relevant workflow.
+- L0/L1 work stays direct; L2 work uses a short plan and relevant verification; L3 work requires approval and rollback planning.
+- Manual run state and compact stage payloads are preferred over long historical reports.
+- Raw data, test data, runtime outputs, and model artifacts remain separate from reusable code.
+- Learned notes and measurement logs are optional records for recurring issues, larger work, or recovery after a failed check.
 
-## Not Included In This Public Package
+## Intentionally Excluded
 
-- Historical project review documents.
-- Local run state and generated reports.
-- Raw datasets and model artifacts.
-- Project-specific share packs.
+- OpenSpec, delta specifications, and mandatory implementation-plan files.
+- `ultracode`, automatic subagents, profile pickers, and plugin installation as default workflow steps.
+- Stop gates, forced evidence JSON, retry budgets, and hooks that block ordinary analysis tasks.
+- External absolute-path dependencies on the `Must Read It` workspace.
 
 ## Interpretation
 
-Manual has the core Must Read It First workflow pattern needed for public reuse. It is packaged here as a generic workflow kit with project-specific history removed.
+This package uses the useful routing and safety principles of Must Read It without turning routine EDA or small preprocessing changes into a mandatory harness. Stronger orchestration can be added later as an opt-in profile for a genuinely large engineering task.

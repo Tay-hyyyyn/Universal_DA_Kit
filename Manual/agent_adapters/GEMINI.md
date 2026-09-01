@@ -8,7 +8,7 @@ Read:
 
 1. `Manual/agent_manifest.json`
 2. `Manual/README.md`
-3. `Manual/AGENT_USAGE_GUIDELINES.md`
+3. `Manual/CODE_AGENT_ONBOARDING.md` and `Manual/CONTEXT_MINIMIZATION_GUIDE.md` for multi-stage or resumed work
 
 Then inspect the config and the relevant plugin skill file.
 

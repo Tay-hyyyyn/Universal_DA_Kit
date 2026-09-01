@@ -9,7 +9,7 @@
 - 실행 구조: `run_manual_pipeline.ps1`, `agent_manifest.json`
 - 단계별 코드: `plugins/manual-*`, `plugins/_shared`
 - 설정 예시: `config/*.json`
-- 사용자/agent 가이드: `README.md`, `CODE_AGENT_ONBOARDING.md`, `AGENT_USAGE_GUIDELINES.md`
+- 사용자/agent 가이드: `README.md`, `CODE_AGENT_ONBOARDING.md`, `CONTEXT_MINIMIZATION_GUIDE.md`
 - 테스트: `tests/`
 - 과거 실행 산출물: `runs/`, `state/`, `log.md`, `__pycache__/`, `tests/_tmp*`
 
@@ -162,4 +162,3 @@ Git에는 아래를 올리지 않는다.
 - `Manual/log.md`
 - `data/raw/` 원천 데이터
 - `__pycache__/`, `*.pyc`, 테스트 임시폴더
-

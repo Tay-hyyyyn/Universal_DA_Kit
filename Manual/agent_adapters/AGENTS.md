@@ -6,7 +6,7 @@ Scope: this file applies to the project where it is copied. It is designed for C
 
 1. Read `Manual/agent_manifest.json`.
 2. Read `Manual/README.md`.
-3. Read `Manual/AGENT_USAGE_GUIDELINES.md`.
+3. Read `Manual/CODE_AGENT_ONBOARDING.md` and `Manual/CONTEXT_MINIMIZATION_GUIDE.md` when the task spans multiple stages or resumes a run.
 4. If working on a specific stage, read that plugin's `skills/<plugin>/SKILL.md`.
 
 ## Operating Rules

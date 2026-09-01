@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+"""Optionally verify AGENTS.md and CLAUDE.md pairs before commit."""
+
+import sys
+from pathlib import Path
+
+
+def main() -> int:
+    root = Path.cwd()
+    mismatches = []
+    for agents_path in root.rglob("AGENTS.md"):
+        claude_path = agents_path.with_name("CLAUDE.md")
+        relative = agents_path.parent.relative_to(root)
+        if not claude_path.exists():
+            mismatches.append(f"Missing CLAUDE.md beside {relative / agents_path.name}")
+            continue
+        if agents_path.read_bytes() != claude_path.read_bytes():
+            label = str(relative) if str(relative) else "."
+            mismatches.append(f"AGENTS.md and CLAUDE.md differ in {label}")
+    if mismatches:
+        print("Agent guide check failed:", file=sys.stderr)
+        print("\n".join(mismatches), file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
